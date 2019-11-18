@@ -17,7 +17,7 @@ Table of Contents
   * [Methods](#methods)
     * [getAddress](#getAddress)
     * [sendAssets](#sendAssets)
-    * [sendInvoice](#sendInvoice)
+    * [payInvoice](#payInvoice)
   * [Communication Protocol](#communication-protocol)
 * [Rationale](#rationale)
 * [References](#references)
@@ -209,20 +209,20 @@ Example
 }
 ```
 
-#### sendInvoice
+#### payInvoice
 
-Provides an interface for an application to send a BIP70 payment invoice to a users wallet.
+Provides an interface for an application to request payment of a BIP70 invoice to a users wallet.
 
 ##### Method Interface
 
 ```
-function sendInvoice(SendInvoiceInput): Promise<SendInvoiceOutput>
+function payInvoice(PayInvoiceInput): Promise<PayInvoiceOutput>
 ```
 
 ##### Input arguments
 
 ```
-interface SendInvoiceInput {
+interface PayInvoiceInput {
   url: string; // Url to retrieve the BIP70 payment request from the merchant server
 }
 ```
@@ -231,7 +231,7 @@ interface SendInvoiceInput {
 ##### Success return value
 
 ```
-interface SendInvoiceOutput {
+interface PayInvoiceOutput {
   memo: string; // Message from merchant server upon receiving payment
 }
 ```
@@ -250,10 +250,10 @@ interface Error {
 ##### Example
 
 ```
-sendInvoice({
+payInvoice({
   url: 'bitcoincash:?r=https://bitpay.com/i/LHQmUTjzAcqX1NU47Nk1mJ',
 })
-.then((data: SendInvoiceOutput) => {
+.then((data: PayInvoiceOutput) => {
   const {
     memo,
   } = data;
