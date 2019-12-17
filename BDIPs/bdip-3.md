@@ -18,7 +18,7 @@ Table of Contents
     * [getAddress](#getAddress)
     * [sendAssets](#sendAssets)
     * [payInvoice](#payInvoice)
-    * [mintToken](#mintToken)
+    * [createToken](#createToken)
   * [Communication Protocol](#communication-protocol)
 * [Rationale](#rationale)
 * [References](#references)
@@ -298,20 +298,20 @@ Example
 ```
 
 
-#### mintToken
+#### createToken
 
-Mints a new SLP token
+Creates a new SLP token, and mints the initial supply to specified wallet address
 
 ##### Method Interface
 
 ```
-function mintToken(MintTokenInput): Promise<MintTokenOutput>
+function createToken(CreateTokenInput): Promise<CreateTokenOutput>
 ```
 
 ##### Input arguments
 
 ```
-interface MintTokenInput {
+interface CreateTokenInput {
   name: string; // token name
   symbol: string; // token symbol
   decimals: number; // number of decimals
@@ -327,7 +327,7 @@ interface MintTokenInput {
 ##### Success return value
 
 ```
-interface MintTokenOutput {
+interface CreateTokenOutput {
   tokenId: string; // unique id for new token (also txid of token genesis tx)
 }
 ```
@@ -346,14 +346,14 @@ interface Error {
 ##### Example
 
 ```
-mintToken({
+createToken({
   name: 'World Hunger Token',
   symbol: 'WHT',
   decimals: 8,
   initialSupply: '1000000000',
   tokenReceiverAddress: 'simpleledger:qq835u5srlcqwrtwt6xm4efwan30fxg9hcqag6fk03',
 })
-.then((data: MintTokenOutput) => {
+.then((data: CreateTokenOutput) => {
   const {
     tokenId,
   } = data;
